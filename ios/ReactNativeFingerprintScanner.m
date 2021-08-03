@@ -9,10 +9,10 @@
 @implementation ReactNativeFingerprintScanner
 
 RCT_EXPORT_MODULE();
-
+LAContext *context;
 RCT_EXPORT_METHOD(isSensorAvailable: (RCTResponseSenderBlock)callback)
 {
-    LAContext *context = [[LAContext alloc] init];
+    context = [[LAContext alloc] init];
     NSError *error;
 
     if ([context canEvaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics error:&error]) {
@@ -64,11 +64,10 @@ RCT_EXPORT_METHOD(authenticate: (NSString *)reason
     if (!fallbackEnabled) {
         context.localizedFallbackTitle = @"";
     }
-
     // Device has FingerprintScanner
-    if ([context canEvaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics error:&error]) {
+    if ([context canEvaluatePolicy:LAPolicyDeviceOwnerAuthentication error:&error]) {
         // Attempt Authentication
-        [context evaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics
+        [context evaluatePolicy:LAPolicyDeviceOwnerAuthentication
                 localizedReason:reason
                           reply:^(BOOL success, NSError *error)
          {
@@ -163,7 +162,9 @@ RCT_EXPORT_METHOD(authenticate: (NSString *)reason
         return;
     }
 }
-
+RCT_EXPORT_METHOD(invalidate){
+    [context invalidate];
+}
 - (NSString *)getBiometryType:(LAContext *)context
 {
     if (@available(iOS 11, *)) {
