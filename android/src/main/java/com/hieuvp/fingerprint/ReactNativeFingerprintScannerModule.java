@@ -83,14 +83,14 @@ public class ReactNativeFingerprintScannerModule
 
         @Override
         public void onAuthenticationError(int errorCode, @NonNull CharSequence errString) {
-            biometricPrompt = null;
+                biometricPrompt = null;
             super.onAuthenticationError(errorCode, errString);
             this.promise.reject(biometricPromptErrName(errorCode), TYPE_BIOMETRICS);
         }
 
         @Override
         public void onAuthenticationSucceeded(@NonNull BiometricPrompt.AuthenticationResult result) {
-            biometricPrompt = null;
+                biometricPrompt = null;
             super.onAuthenticationSucceeded(result);
             this.promise.resolve(true);
         }
@@ -212,7 +212,7 @@ public class ReactNativeFingerprintScannerModule
     }
 
     @ReactMethod
-    public void release() {
+    public synchronized void release() {
         if (requiresLegacyAuthentication()) {
             getFingerprintIdentify().cancelIdentify();
             mFingerprintIdentify = null;
