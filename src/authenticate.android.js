@@ -14,7 +14,7 @@ const authCurrent = (title, subTitle, description, cancelButton, resolve, reject
     })
     .catch((error) => {
       // translate errors
-      reject(createError(error.code, error.message));
+      resolve(false)
     });
 }
 
