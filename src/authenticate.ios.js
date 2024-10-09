@@ -1,5 +1,4 @@
 import { NativeModules } from 'react-native';
-import createError from './createError';
 
 const { ReactNativeFingerprintScanner } = NativeModules;
 
