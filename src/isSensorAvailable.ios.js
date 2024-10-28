@@ -7,7 +7,7 @@ export default () => {
   return new Promise((resolve, reject) => {
     ReactNativeFingerprintScanner.isSensorAvailable((error, biometryType) => {
       if (error) {
-        resolve("")
+        reject("")
         return;
       };
       resolve(biometryType);

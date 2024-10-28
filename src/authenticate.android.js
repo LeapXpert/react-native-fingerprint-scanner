@@ -32,7 +32,7 @@ const authLegacy = (onAttempt, resolve, reject) => {
     })
     .catch((error) => {
       DeviceEventEmitter.removeAllListeners('FINGERPRINT_SCANNER_AUTHENTICATION');
-      resolve(false)
+      reject(false)
     });
 }
 
